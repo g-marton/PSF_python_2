@@ -1,0 +1,30 @@
+name: Deploy Streamlit App
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Linux environment
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install Microsoft Fonts
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ttf-mscorefonts-installer fontconfig
+        sudo fc-cache -f -v
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Streamlit App
+      run: |
+        streamlit run PSF_final_everything_together.py
